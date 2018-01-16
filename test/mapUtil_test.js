@@ -1,8 +1,8 @@
-const LinkedListContract = artifacts.require('./TestContracts/LinkedListTest');
+const ObjTest = artifacts.require('./TestContracts/ObjTest');
 const should = require('chai').should();
 const expect = require('chai').expect;
 
-contract('LinkedListContract', async function(accounts) {
+contract('ObjTest', async function(accounts) {
   let instance;
   let elements;
   const NUM1 = 1;
@@ -10,7 +10,7 @@ contract('LinkedListContract', async function(accounts) {
   const NUM3 = 3;
 
   before(async () => {
-    instance = await LinkedListContract.deployed();
+    instance = await ObjTest.deployed();
   });
 
   contract('initial state', function() {
@@ -28,7 +28,7 @@ contract('LinkedListContract', async function(accounts) {
   contract('insertBeginning', async function() {
     let elements;
     before(async () => {
-      await instance.insertBeginning(NUM1);
+      await instance.insertBeginning(NUM1, 0);
       elements = await getAll(instance);
     });
 
@@ -47,7 +47,7 @@ contract('LinkedListContract', async function(accounts) {
 
     contract('one insert', async() => {
       before(async () => {
-        await instance.insertEnd(NUM1);
+        await instance.insertEnd(NUM1, 0);
         elements = await getAll(instance);
       });
 
@@ -63,9 +63,9 @@ contract('LinkedListContract', async function(accounts) {
 
     contract('insertEnd', async() => {
       before(async () => {
-        await instance.insertEnd(NUM1);
-        await instance.insertEnd(NUM2);
-        await instance.insertEnd(NUM3);
+        await instance.insertEnd(NUM1, 0);
+        await instance.insertEnd(NUM2, 1);
+        await instance.insertEnd(NUM3, 2);
         elements = await getAll(instance);
       });
 
@@ -78,17 +78,17 @@ contract('LinkedListContract', async function(accounts) {
         foundElements.length.should.eq(1);
       });
       it(`should insert items in right order`, async function() {
-        elements[0].toNumber().should.eq(NUM1);
-        elements[1].toNumber().should.eq(NUM2);
-        elements[2].toNumber().should.eq(NUM3);
+        elements[0].toNumber().should.eq(NUM1, 1);
+        elements[1].toNumber().should.eq(NUM2, 2);
+        elements[2].toNumber().should.eq(NUM3, 3);
       });
     });
 
     contract('insertBeginning', async() => {
       before(async () => {
-        await instance.insertBeginning(NUM3);
-        await instance.insertBeginning(NUM2);
-        await instance.insertBeginning(NUM1);
+        await instance.insertBeginning(NUM3, 1);
+        await instance.insertBeginning(NUM2, 2);
+        await instance.insertBeginning(NUM1, 3);
         elements = await getAll(instance);
       });
 
@@ -101,17 +101,17 @@ contract('LinkedListContract', async function(accounts) {
         foundElements.length.should.eq(1);
       });
       it(`should insert items in right order`, async function() {
-        elements[0].toNumber().should.eq(NUM1);
-        elements[1].toNumber().should.eq(NUM2);
-        elements[2].toNumber().should.eq(NUM3);
+        elements[0].toNumber().should.eq(NUM1, 1);
+        elements[1].toNumber().should.eq(NUM2, 2);
+        elements[2].toNumber().should.eq(NUM3, 3);
       });
     });
 
     contract('mixed', async() => {
       before(async () => {
-        await instance.insertBeginning(NUM2);
-        await instance.insertBeginning(NUM1);
-        await instance.insertEnd(NUM3);
+        await instance.insertBeginning(NUM2, 2);
+        await instance.insertBeginning(NUM1, 1);
+        await instance.insertEnd(NUM3, 3);
         elements = await getAll(instance);
       });
 
@@ -124,23 +124,23 @@ contract('LinkedListContract', async function(accounts) {
         foundElements.length.should.eq(1);
       });
       it(`should insert items in right order`, async function() {
-        elements[0].toNumber().should.eq(NUM1);
-        elements[1].toNumber().should.eq(NUM2);
-        elements[2].toNumber().should.eq(NUM3);
+        elements[0].toNumber().should.eq(NUM1, 1);
+        elements[1].toNumber().should.eq(NUM2, 2);
+        elements[2].toNumber().should.eq(NUM3, 3);
       });
     });
 
     contract('next', async() => {
       before(async () => {
-        await instance.insertBeginning(NUM1);
-        await instance.insertEnd(NUM2);
-        await instance.insertEnd(NUM3);
+        await instance.insertBeginning(NUM1, 1);
+        await instance.insertEnd(NUM2, 2);
+        await instance.insertEnd(NUM3, 3);
         elements = await getAll(instance);
       });
 
       it('should return next item', async function() {
-        (await instance.next.call(NUM1)).toNumber().should.eq(NUM2);
-        (await instance.next.call(NUM2)).toNumber().should.eq(NUM3);
+        (await instance.next.call(NUM1)).toNumber().should.eq(NUM2, 2);
+        (await instance.next.call(NUM2)).toNumber().should.eq(NUM3, 3);
         (await instance.next.call(NUM3)).toNumber().should.eq(0);
       });
     });
@@ -148,15 +148,15 @@ contract('LinkedListContract', async function(accounts) {
     contract('next iteration', async() => {
       const arr = [NUM1, NUM2, NUM3];
       before(async () => {
-        arr.forEach(async num => await instance.insertEnd(num));
+        arr.forEach(async num => await instance.insertEnd(num, 0));
         let node = await instance.first();
         elements = await getAll(instance);
       });
 
       it('should return next item', async function() {
-        elements[0].toNumber().should.eq(NUM1);
-        elements[1].toNumber().should.eq(NUM2);
-        elements[2].toNumber().should.eq(NUM3);
+        elements[0].toNumber().should.eq(NUM1, 1);
+        elements[1].toNumber().should.eq(NUM2, 2);
+        elements[2].toNumber().should.eq(NUM3, 3);
         elements.length.should.eq(3);
       });
     });

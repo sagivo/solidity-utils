@@ -1,12 +1,13 @@
 pragma solidity ^0.4.17;
 
 
-library LinkedList {
+library Obj {
     uint constant private NULL = 0;
 
     struct Node {
         uint prev;
         uint next;
+        bytes data;
     }
 
     struct Data {
@@ -16,7 +17,7 @@ library LinkedList {
         uint len;
     }
 
-    function insertAfter(Data storage self, uint afterId, uint id) internal {
+    function insertAfter(Data storage self, uint afterId, uint id, bytes data) internal {
         self.list[id].prev = afterId;
         if (self.list[afterId].next == NULL) {
             self.list[id].next =  NULL;
@@ -25,11 +26,12 @@ library LinkedList {
             self.list[id].next = self.list[afterId].next;
             self.list[self.list[afterId].next].prev = id;
         }
+        self.list[id].data = data;
         self.list[afterId].next = id;
         self.len++;
     }
 
-    function insertBefore(Data storage self, uint beforeId, uint id) internal {
+    function insertBefore(Data storage self, uint beforeId, uint id, bytes data) internal {
         self.list[id].next = beforeId;
         if (self.list[beforeId].prev == NULL) {
             self.list[id].prev = NULL;
@@ -38,24 +40,29 @@ library LinkedList {
             self.list[id].prev = self.list[beforeId].prev;
             self.list[self.list[beforeId].prev].next = id;
         }
+        self.list[id].data = data;
         self.list[beforeId].prev = id;
         self.len++;
     }
 
-    function insertBeginning(Data storage self, uint id) internal {
+    function insertBeginning(Data storage self, uint id, bytes data) internal {
         if (self.firstNodeId == NULL) {
             self.firstNodeId = id;
             self.lastNodeId = id;
-            self.list[id] = Node({ prev: 0, next: 0 });
+            self.list[id] = Node({ prev: 0, next: 0, data: data });
             self.len++;
         } else
-            insertBefore(self, self.firstNodeId, id);
+            insertBefore(self, self.firstNodeId, id, data);
     }
 
-    function insertEnd(Data storage self, uint id) internal {
-        if (self.lastNodeId == NULL) insertBeginning(self, id);
+    function insertEnd(Data storage self, uint id, bytes data) internal {
+        if (self.lastNodeId == NULL) insertBeginning(self, id, data);
         else
-            insertAfter(self, self.lastNodeId, id);
+            insertAfter(self, self.lastNodeId, id, data);
+    }
+
+    function set(Data storage self, uint id, bytes data) internal {
+        insertEnd(self, id, data);
     }
 
     function remove(Data storage self, uint id) internal returns (bool) {
@@ -63,12 +70,12 @@ library LinkedList {
         uint prevId = self.list[id].prev;
 
         if (prevId == NULL) self.firstNodeId = nextId; //first node
-        else
-            self.list[prevId].next = nextId;
+        else self.list[prevId].next = nextId;
 
         if (nextId == NULL) self.lastNodeId = prevId; //last node
-        else
-            self.list[nextId].prev = prevId;
+        else self.list[nextId].prev = prevId;
+
+        delete self.list[id];
 
         return true;
     }
@@ -79,5 +86,15 @@ library LinkedList {
 
     function prev(Data storage self, uint id) internal view returns (uint) {
         return self.list[id].prev;
+    }
+
+    function allKeys(Data storage self) internal view returns (uint[]) {
+        uint[] memory arr = new uint[](self.len);
+        uint node = self.firstNodeId;
+        for (uint i=0; i < self.len; i++) {
+            arr[i] = node;
+            node = next(self, node);
+        }
+        return arr;
     }
 }

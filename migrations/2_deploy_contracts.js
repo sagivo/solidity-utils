@@ -1,7 +1,8 @@
-var LinkedList = artifacts.require("./lib/LinkedList.sol");
-var LinkedListTest = artifacts.require("./TestContracts/LinkedListTest.sol");
+var Obj = artifacts.require("./lib/Obj.sol");
+var ObjTest = artifacts.require("./tester/ObjTest.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(LinkedListTest);
-  deployer.link(LinkedList, LinkedListTest);
+  deployer.deploy(Obj);
+  deployer.deploy(ObjTest);
+  deployer.link(Obj, ObjTest);
 };
