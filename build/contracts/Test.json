@@ -1,0 +1,205 @@
+{
+  "contractName": "Test",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "s",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x60606040523415600e57600080fd5b609f8061001c6000396000f300606060405260043610603f576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806386b714e2146044575b600080fd5b3415604e57600080fd5b6054606a565b6040518082815260200191505060405180910390f35b6000607b9050905600a165627a7a72305820dd9edd792bd39d0660170865f577e6110b897b02845384e0a50b83536dda60e50029",
+  "deployedBytecode": "0x606060405260043610603f576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806386b714e2146044575b600080fd5b3415604e57600080fd5b6054606a565b6040518082815260200191505060405180910390f35b6000607b9050905600a165627a7a72305820dd9edd792bd39d0660170865f577e6110b897b02845384e0a50b83536dda60e50029",
+  "sourceMap": "52:430:1:-;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "52:430:1:-;;;;;;;;;;;;;;;;;;;;;;;;284:61;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;312:4;335:3;328:10;;284:61;:::o",
+  "source": "pragma solidity ^0.4.17;\n\nimport \"./MapUtil.sol\";\n\n\ncontract Test {\n    // using MapUtil for MapUtil.Data;\n    // MapUtil.Data public map;\n\n    // function aa() public returns(uint) {\n    //     // map.insertEnd(id);\n    //     // map.setFoo(id);\n    //     return 123;\n    // }\n\n    function s() public returns(uint) {\n        return 123;\n    }\n\n    // function print() public view returns (uint res) {\n    //     // res = map.getAll()[0];\n    //     res = map.getFoo();\n    // }\n}\n",
+  "sourcePath": "/Users/sagivo/dev/side/crypto/mapUtil/contracts/Test.sol",
+  "ast": {
+    "attributes": {
+      "absolutePath": "/Users/sagivo/dev/side/crypto/mapUtil/contracts/Test.sol",
+      "exportedSymbols": {
+        "Test": [
+          425
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.4",
+            ".17"
+          ]
+        },
+        "id": 415,
+        "name": "PragmaDirective",
+        "src": "0:24:1"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 414,
+          "absolutePath": "/Users/sagivo/dev/side/crypto/mapUtil/contracts/MapUtil.sol",
+          "file": "./MapUtil.sol",
+          "scope": 426,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 416,
+        "name": "ImportDirective",
+        "src": "26:23:1"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            425
+          ],
+          "name": "Test",
+          "scope": 426
+        },
+        "children": [
+          {
+            "attributes": {
+              "constant": false,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "s",
+              "payable": false,
+              "scope": 425,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 417,
+                "name": "ParameterList",
+                "src": "294:2:1"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 424,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 418,
+                        "name": "ElementaryTypeName",
+                        "src": "312:4:1"
+                      }
+                    ],
+                    "id": 419,
+                    "name": "VariableDeclaration",
+                    "src": "312:4:1"
+                  }
+                ],
+                "id": 420,
+                "name": "ParameterList",
+                "src": "311:6:1"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 420
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "hexvalue": "313233",
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "subdenomination": null,
+                          "token": "number",
+                          "type": "int_const 123",
+                          "value": "123"
+                        },
+                        "id": 421,
+                        "name": "Literal",
+                        "src": "335:3:1"
+                      }
+                    ],
+                    "id": 422,
+                    "name": "Return",
+                    "src": "328:10:1"
+                  }
+                ],
+                "id": 423,
+                "name": "Block",
+                "src": "318:27:1"
+              }
+            ],
+            "id": 424,
+            "name": "FunctionDefinition",
+            "src": "284:61:1"
+          }
+        ],
+        "id": 425,
+        "name": "ContractDefinition",
+        "src": "52:430:1"
+      }
+    ],
+    "id": 426,
+    "name": "SourceUnit",
+    "src": "0:483:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.18+commit.9cf6e910.Emscripten.clang"
+  },
+  "networks": {
+    "4447": {
+      "events": {},
+      "links": {
+        "MapUtil": "0x345ca3e014aaf5dca488057592ee47305d9b3e10"
+      },
+      "address": "0x488e9658bae7d527fc3a9303074e5ae05934c772"
+    }
+  },
+  "schemaVersion": "1.0.1",
+  "updatedAt": "2018-01-12T17:13:45.314Z"
+}
