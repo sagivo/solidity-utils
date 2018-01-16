@@ -80,6 +80,7 @@ library Obj {
         else self.list[nextId].prev = prevId;
 
         delete self.list[id];
+        self.len--;
 
         return true;
     }
