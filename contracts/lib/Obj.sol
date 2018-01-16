@@ -65,6 +65,10 @@ library Obj {
         insertEnd(self, id, data);
     }
 
+    function get(Data storage self, uint id) internal view returns (bytes) {
+        return self.list[id].data;
+    }
+
     function remove(Data storage self, uint id) internal returns (bool) {
         uint nextId = self.list[id].next;
         uint prevId = self.list[id].prev;
@@ -88,7 +92,7 @@ library Obj {
         return self.list[id].prev;
     }
 
-    function allKeys(Data storage self) internal view returns (uint[]) {
+    function keys(Data storage self) internal view returns (uint[]) {
         uint[] memory arr = new uint[](self.len);
         uint node = self.firstNodeId;
         for (uint i=0; i < self.len; i++) {

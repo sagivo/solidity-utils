@@ -23,6 +23,18 @@ contract ObjTest {
         obj.insertBeginning(id, data);
     }
 
+    function set(uint id, bytes data) public {
+        obj.set(id, data);
+    }
+
+    function get(uint id) public view returns (bytes) {
+        return obj.get(id);
+    }
+
+    function keys() public view returns (uint[]) {
+        return obj.keys();
+    }
+
     function insertEnd(uint id, bytes data) public {
         obj.insertEnd(id, data);
     }
