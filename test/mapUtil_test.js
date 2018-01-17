@@ -27,59 +27,206 @@ contract('ObjTest', async function(accounts) {
 
   contract('set & get', async function() {
     let elements;
-    let gets = [];
-    before(async () => {
-      await instance.set(NUM1, 'a');
-      await instance.set(NUM2, 'b');
-      await instance.set(NUM3, 'hello world');
-      elements = await getAll(instance);
-      gets.push(await instance.get.call(NUM1));
-      gets.push(await instance.get.call(NUM2));
-      gets.push(await instance.get.call(NUM3));
+    contract('reg insert 3', async () => {
+      let gets = [];
+      before(async () => {
+        await instance.set(NUM1, 'a');
+        await instance.set(NUM2, 'b');
+        await instance.set(NUM3, 'hello world');
+        elements = await getAll(instance);
+        gets.push(await instance.get.call(NUM1));
+        gets.push(await instance.get.call(NUM2));
+        gets.push(await instance.get.call(NUM3));
+      });
+
+      it('should have 3 items', async function() {
+        const size = (await instance.getSize.call()).toNumber();
+        size.should.eq(3);
+      });
+      it(`should insert items in right order`, async function() {
+        elements[0].toNumber().should.eq(NUM1);
+        elements[1].toNumber().should.eq(NUM2);
+        elements[2].toNumber().should.eq(NUM3);
+      });
+      it(`should attach the right values`, async function() {
+        gets[0].should.eq('0x61');
+        gets[1].should.eq('0x62');
+        gets[2].should.eq('0x68656c6c6f20776f726c64');
+      });
     });
 
-    it('should have 3 items', async function() {
-      const size = (await instance.getSize.call()).toNumber();
-      size.should.eq(3);
+    contract('reg existed val start', async () => {
+      let gets = [];
+      before(async () => {
+        await instance.set(NUM1, 'a');
+        await instance.set(NUM1, 'hello world');
+        await instance.set(NUM2, 'b');
+        await instance.set(NUM3, 'hello world');
+        elements = await getAll(instance);
+        gets.push(await instance.get.call(NUM1));
+        gets.push(await instance.get.call(NUM2));
+        gets.push(await instance.get.call(NUM3));
+      });
+
+      it('should have 3 items', async function() {
+        const size = (await instance.getSize.call()).toNumber();
+        size.should.eq(3);
+      });
+      it(`should insert items in right order`, async function() {
+        elements[0].toNumber().should.eq(NUM1);
+        elements[1].toNumber().should.eq(NUM2);
+        elements[2].toNumber().should.eq(NUM3);
+      });
+      it(`should attach the right values`, async function() {
+        gets[0].should.eq('0x68656c6c6f20776f726c64');
+        gets[1].should.eq('0x62');
+        gets[2].should.eq('0x68656c6c6f20776f726c64');
+      });
     });
-    it(`should insert items in right order`, async function() {
-      elements[0].toNumber().should.eq(NUM1);
-      elements[1].toNumber().should.eq(NUM2);
-      elements[2].toNumber().should.eq(NUM3);
+
+    contract('reg existed val end', async () => {
+      let gets = [];
+      before(async () => {
+        await instance.set(NUM1, 'a');
+        await instance.set(NUM2, 'b');
+        await instance.set(NUM3, 'hello world');
+        await instance.set(NUM3, 'a');
+        elements = await getAll(instance);
+        gets.push(await instance.get.call(NUM1));
+        gets.push(await instance.get.call(NUM2));
+        gets.push(await instance.get.call(NUM3));
+      });
+
+      it('should have 3 items', async function() {
+        const size = (await instance.getSize.call()).toNumber();
+        size.should.eq(3);
+      });
+      it(`should insert items in right order`, async function() {
+        elements[0].toNumber().should.eq(NUM1);
+        elements[1].toNumber().should.eq(NUM2);
+        elements[2].toNumber().should.eq(NUM3);
+      });
+      it(`should attach the right values`, async function() {
+        gets[0].should.eq('0x61');
+        gets[1].should.eq('0x62');
+        gets[2].should.eq('0x61');
+      });
     });
-    it(`should attach the right values`, async function() {
-      gets[0].should.eq('0x61');
-      gets[1].should.eq('0x62');
-      gets[2].should.eq('0x68656c6c6f20776f726c64');
+
+    contract('reg existed val mid', async () => {
+      let gets = [];
+      before(async () => {
+        await instance.set(NUM1, 'a');
+        await instance.set(NUM2, 'b');
+        await instance.set(NUM3, 'hello world');
+        await instance.set(NUM2, 'hello world');
+        elements = await getAll(instance);
+        gets.push(await instance.get.call(NUM1));
+        gets.push(await instance.get.call(NUM2));
+        gets.push(await instance.get.call(NUM3));
+      });
+
+      it('should have 3 items', async function() {
+        const size = (await instance.getSize.call()).toNumber();
+        size.should.eq(3);
+      });
+      it(`should insert items in right order`, async function() {
+        elements[0].toNumber().should.eq(NUM1);
+        elements[1].toNumber().should.eq(NUM2);
+        elements[2].toNumber().should.eq(NUM3);
+      });
+      it(`should attach the right values`, async function() {
+        gets[0].should.eq('0x61');
+        gets[1].should.eq('0x68656c6c6f20776f726c64');
+        gets[2].should.eq('0x68656c6c6f20776f726c64');
+      });
     });
   });
 
-  contract('remove', async function() {
+  contract('remove', async () => {
     let elements;
-    let gets = [];
-    before(async () => {
-      await instance.set(NUM1, 'a');
-      await instance.set(NUM2, 'b');
-      await instance.set(NUM3, 'hello world');
-      await instance.remove(NUM2);
-      elements = await getAll(instance);
-      gets.push(await instance.get.call(NUM1));
-      gets.push(await instance.get.call(NUM2));
-      gets.push(await instance.get.call(NUM3));
+    contract('remove first', async () => {
+      let gets = [];
+      before(async () => {
+        await instance.set(NUM1, 'a');
+        await instance.set(NUM2, 'b');
+        await instance.set(NUM3, 'hello world');
+        await instance.remove(NUM1);
+        elements = await getAll(instance);
+        gets.push(await instance.get.call(NUM1));
+        gets.push(await instance.get.call(NUM2));
+        gets.push(await instance.get.call(NUM3));
+      });
+
+      it('should have 2 items', async function() {
+        const size = (await instance.getSize.call()).toNumber();
+        size.should.eq(2);
+      });
+      it(`should insert items in right order`, async function() {
+        elements[0].toNumber().should.eq(NUM2);
+        elements[1].toNumber().should.eq(NUM3);
+      });
+      it(`should attach the right values`, async function() {
+        gets[0].should.eq('0x');
+        gets[1].should.eq('0x62');
+        gets[2].should.eq('0x68656c6c6f20776f726c64');
+      });
     });
 
-    it('should have 2 items', async function() {
-      const size = (await instance.getSize.call()).toNumber();
-      size.should.eq(2);
+    contract('remove middle', async () => {
+      let gets = [];
+      before(async () => {
+        await instance.set(NUM1, 'a');
+        await instance.set(NUM2, 'b');
+        await instance.set(NUM3, 'hello world');
+        await instance.remove(NUM2);
+        elements = await getAll(instance);
+        gets.push(await instance.get.call(NUM1));
+        gets.push(await instance.get.call(NUM2));
+        gets.push(await instance.get.call(NUM3));
+      });
+
+      it('should have 2 items', async function() {
+        const size = (await instance.getSize.call()).toNumber();
+        size.should.eq(2);
+      });
+      it(`should insert items in right order`, async function() {
+        elements[0].toNumber().should.eq(NUM1);
+        elements[1].toNumber().should.eq(NUM3);
+      });
+      it(`should attach the right values`, async function() {
+        gets[0].should.eq('0x61');
+        gets[1].should.eq('0x');
+        gets[2].should.eq('0x68656c6c6f20776f726c64');
+      });
     });
-    it(`should insert items in right order`, async function() {
-      elements[0].toNumber().should.eq(NUM1);
-      elements[1].toNumber().should.eq(NUM3);
-    });
-    it(`should attach the right values`, async function() {
-      gets[0].should.eq('0x61');
-      gets[1].should.eq('0x');
-      gets[2].should.eq('0x68656c6c6f20776f726c64');
+
+    contract('remove end', async () => {
+      let gets = [];
+      before(async () => {
+        await instance.set(NUM1, 'a');
+        await instance.set(NUM2, 'b');
+        await instance.set(NUM3, 'hello world');
+        await instance.remove(NUM3);
+        elements = await getAll(instance);
+        gets.push(await instance.get.call(NUM1));
+        gets.push(await instance.get.call(NUM2));
+        gets.push(await instance.get.call(NUM3));
+      });
+
+      it('should have 2 items', async function() {
+        const size = (await instance.getSize.call()).toNumber();
+        size.should.eq(2);
+      });
+      it(`should insert items in right order`, async function() {
+        elements[0].toNumber().should.eq(NUM1);
+        elements[1].toNumber().should.eq(NUM2);
+      });
+      it(`should attach the right values`, async function() {
+        gets[0].should.eq('0x61');
+        gets[1].should.eq('0x62');
+        gets[2].should.eq('0x');
+      });
     });
   });
 
