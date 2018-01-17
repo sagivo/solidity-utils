@@ -365,7 +365,27 @@ contract('ObjTest', async function(accounts) {
         elements.length.should.eq(3);
       });
     });
+  });
 
+  contract('get keys', function() {
+    let elements = [];
+    before(async () => {
+      await instance.set(NUM1, 'a');
+      await instance.set(NUM2, 'b');
+      await instance.set(NUM2, 'hello world');
+      await instance.set(NUM3, 'hello world');
+      elements = await instance.keys.call();
+    });
+
+    it('should have right size', async function() {
+      elements.length.should.eq(3);
+    });
+
+    it('should have right keys', async function() {
+      elements[0].toNumber().should.eq(NUM1);
+      elements[1].toNumber().should.eq(NUM2);
+      elements[2].toNumber().should.eq(NUM3);
+    });
   });
 
 });
