@@ -1,8 +1,8 @@
-var Obj = artifacts.require("./lib/Obj.sol");
-var ObjTest = artifacts.require("./tester/ObjTest.sol");
+var Dictionary = artifacts.require("./lib/Dictionary.sol");
+var DictionaryTest = artifacts.require("./tester/DictionaryTest.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(Obj);
-  deployer.deploy(ObjTest);
-  deployer.link(Obj, ObjTest);
+  deployer.deploy(Dictionary);
+  deployer.deploy(DictionaryTest);
+  deployer.link(Dictionary, DictionaryTest);
 };

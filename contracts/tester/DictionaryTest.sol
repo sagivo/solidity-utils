@@ -1,57 +1,57 @@
 pragma solidity ^0.4.17;
 
-import "./../lib/Obj.sol";
+import "./../lib/Dictionary.sol";
 
 
-contract ObjTest {
-    using Obj for Obj.Data;
-    Obj.Data private obj;
+contract DictionaryTest {
+    using Dictionary for Dictionary.Data;
+    Dictionary.Data private dic;
 
     function getSize() public view returns (uint) {
-        return obj.len;
+        return dic.len;
     }
 
     function insertAfter(uint afterId, uint id, bytes data) public {
-        obj.insertAfter(afterId, id, data);
+        dic.insertAfter(afterId, id, data);
     }
 
     function insertBefore(uint beforeId, uint id, bytes data) public {
-        obj.insertAfter(beforeId, id, data);
+        dic.insertAfter(beforeId, id, data);
     }
 
     function insertBeginning(uint id, bytes data) public {
-        obj.insertBeginning(id, data);
+        dic.insertBeginning(id, data);
     }
 
     function set(uint id, bytes data) public {
-        obj.set(id, data);
+        dic.set(id, data);
     }
 
     function get(uint id) public view returns (bytes) {
-        return obj.get(id);
+        return dic.get(id);
     }
 
     function keys() public view returns (uint[]) {
-        return obj.keys();
+        return dic.keys();
     }
 
     function insertEnd(uint id, bytes data) public {
-        obj.insertEnd(id, data);
+        dic.insertEnd(id, data);
     }
 
     function remove(uint id) public returns (bool) {
-        return obj.remove(id);
+        return dic.remove(id);
     }
 
     function first() public view returns (uint) {
-        return obj.firstNodeId;
+        return dic.firstNodeId;
     }
 
     function next(uint id) public view returns (uint) {
-        return obj.next(id);
+        return dic.next(id);
     }
 
     function prev(uint id) public view returns (uint) {
-        return obj.prev(id);
+        return dic.prev(id);
     }
 }

@@ -1,8 +1,8 @@
-const ObjTest = artifacts.require('./TestContracts/ObjTest');
+const DictionaryTest = artifacts.require('./TestContracts/DictionaryTest');
 const should = require('chai').should();
 const expect = require('chai').expect;
 
-contract('ObjTest', async function(accounts) {
+contract('DictionaryTest', async function(accounts) {
   let instance;
   let elements;
   const NUM1 = 1;
@@ -10,7 +10,7 @@ contract('ObjTest', async function(accounts) {
   const NUM3 = 3;
 
   before(async () => {
-    instance = await ObjTest.deployed();
+    instance = await DictionaryTest.deployed();
   });
 
   contract('initial state', function() {

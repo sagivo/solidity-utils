@@ -1,28 +1,31 @@
 # solidity-utils
-
 This library has some basic missing utils in Solidity. 
 
-## Obj
-This is an improved mapping data-structure that allows you to retrieve all the keys in a mapping object.
+## Dictionary
+`mapping` + keys iteration.  
+Inspired by `Dictionary` in python or 'Object` in javascript, `Dictionary` is an improved and faster mapping data-structure that allows you to retrieve all the keys in a mapping object while  minimizing storage usage.  
+The data-stucture combines linked-list iteration style with solidity `mapping` hash-table.  
 
 ### Using
 ```solidity
 pragma solidity ^0.4.0;
 // import the contract
-import "github.com/sagivo/solidity-utils/contracts/lib/Obj.sol";
+import "github.com/sagivo/solidity-utils/contracts/lib/Dictionary.sol";
 // have fun
 contract Foo {
-    // declare and use new obj structure
-    using Obj for Obj.Data;
-    Obj.Data private obj;
+    // declare and use new Dictionary structure
+    using Dictionary for Dictionary.Data;
+    Dictionary.Data private dic;
 
     function Foo() public view returns (uint) {
-        obj.set(1, "value");
-        obj.set(2, "foo");
-        obj.set(123, "bar");
-        obj.set(1, "new value");
+        dic.set(1, "value");
+        dic.set(2, "foo");
+        dic.set(123, "bar");
+        dic.set(1, "new value");
+        // get an item
+        dic.get(2); // => '0x666f6f' (byte hex of 'foo')
         // get all keys
-        obj.keys(); // => [1, 2, 123]
+        dic.keys(); // => [1, 2, 123]
     }
 }
 ```

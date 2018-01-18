@@ -1,7 +1,7 @@
 pragma solidity ^0.4.17;
 
 
-library Obj {
+library Dictionary {
     uint constant private NULL = 0;
 
     struct Node {
