@@ -7,7 +7,7 @@ Inspired by `Dictionary` in python or 'Object` in javascript, `Dictionary` is an
 The data-stucture combines linked-list iteration style with solidity `mapping` hash-table.  
 
 ### Using
-```solidity
+```sol
 pragma solidity ^0.4.0;
 // import the contract
 import "github.com/sagivo/solidity-utils/contracts/lib/Dictionary.sol";
