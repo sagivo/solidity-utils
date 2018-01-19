@@ -31,10 +31,10 @@ contract Foo {
 ```
 
 ### Basic Operations
-`set(uint id, bytes data)` - store bytes for a given key.  
-`get(uint id, bytes data)` - get bytes for a given key.  
-`remove(uint id)` - delete a key.  
-`getSize()` - get the number of keys.  
+`set(uint id, bytes data)`  
+`get(uint id) --> bytes data`  
+`remove(uint id)`  
+`getSize() --> uint num of keys`  
 
 ### Iteration operations
 Keys are stored based on the order you specify, allows you to iterate over keys.  
