@@ -57,3 +57,5 @@ while (nodeId != 0) {
 `insertEnd(uint beforeId, uint id, bytes data)` - add a node after another.  
 The default order for `.set(uint id, bytes data)` is `insertEnd`.  
 
+### Limitation
+Key must be bigger than 0.  
