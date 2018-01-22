@@ -11,7 +11,7 @@ The data-stucture combines linked-list iteration style with solidity `mapping` h
 pragma solidity ^0.4.0;
 // import the contract
 import "github.com/sagivo/solidity-utils/contracts/lib/Dictionary.sol";
-// have fun
+
 contract Foo {
     // declare and use new Dictionary structure
     using Dictionary for Dictionary.Data;
@@ -20,12 +20,10 @@ contract Foo {
     function Foo() public view returns (uint) {
         dic.set(1, "value");
         dic.set(2, "foo");
-        dic.set(123, "bar");
-        dic.set(1, "new value");
         // get an item
         dic.get(2); // => '0x666f6f' (byte hex of 'foo')
         // get all keys
-        dic.keys(); // => [1, 2, 123]
+        dic.keys(); // => [1, 2]
     }
 }
 ```
@@ -43,10 +41,10 @@ Keys are stored based on the order you specify, allows you to iterate over keys.
 `firstNodeId` / `lastNodeId` - return the first/last key.  
 Example iteration:
 ```solidity
-uint nodeId = obj.firstNodeId;
+uint nodeId = dic.firstNodeId;
 while (nodeId != 0) {
   // do something
-  nodeId = obj.next(nodeId);
+  nodeId = dic.next(nodeId);
 }
 ```
 

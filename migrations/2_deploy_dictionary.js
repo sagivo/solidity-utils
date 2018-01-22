@@ -1,5 +1,5 @@
-var Dictionary = artifacts.require("./lib/Dictionary.sol");
-var DictionaryTest = artifacts.require("./tester/DictionaryTest.sol");
+var Dictionary = artifacts.require("./lib/Dictionary");
+var DictionaryTest = artifacts.require("./tester/DictionaryTest");
 
 module.exports = function(deployer) {
   deployer.deploy(Dictionary);

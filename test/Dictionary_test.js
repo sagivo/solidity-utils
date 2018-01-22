@@ -1,4 +1,4 @@
-const DictionaryTest = artifacts.require('./TestContracts/DictionaryTest');
+const DictionaryTest = artifacts.require('./tester/DictionaryTest');
 const should = require('chai').should();
 const expect = require('chai').expect;
 
